@@ -36,10 +36,6 @@ jobs:
         python-version: 3.8
     - name: Run all the rules & send results to Defect Dojo, if not a PR
       id: run_rules_nonpr
-      with:
-        repository: kowalskils/semgrep-rules
-        token: ${{ secrets.ACCESS_TOKEN }}
-        path: ./rules
       run: |
         semgrep scan --sarif --config ./rules/ ./code > nonpr.sarif;
         if [[ -s nonpr.sarif ]]; then
