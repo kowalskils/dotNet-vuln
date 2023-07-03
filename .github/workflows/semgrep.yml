@@ -16,7 +16,7 @@ jobs:
       image: returntocorp/semgrep
     env:
       DEFECT_DOJO_TOKEN: ${{ secrets.DD_TOKEN }}
-      DEFECT_DOJO_DOMAIN: ${{ secrets.DD_DOMAIN }}
+      DEFECT_DOJO_DOMAIN: 'https://letanie.serveo.net' # ${{ secrets.DD_DOMAIN }}
       DEFECT_DOJO_ENGAGEMENT_VALUE: '3'
       DEFECT_DOJO_SCAN_TYPE: SARIF
     steps:
@@ -108,4 +108,5 @@ jobs:
         recreate: true
         path: ./code/final_results.txt
       if: steps.pr_comment_case1.outputs.final_results_file_exists == 'True' || steps.pr_comment_case2.outputs.final_results_file_exists == 'True'
+
 
