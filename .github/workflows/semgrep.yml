@@ -36,11 +36,18 @@ jobs:
         python-version: 3.8
     - name: Run all the rules & send results to Defect Dojo, if not a PR
       id: run_rules_nonpr
+      # run: |
+      #   semgrep scan --sarif --config ./rules/ ./code > nonpr.sarif;
+      #   if [[ -s nonpr.sarif ]]; then
+      #      python3 ./rules/scripts/send-results-to-defectdojo.py ./nonpr.sarif;
+      #   fi
       run: |
-        semgrep scan --sarif --config ./rules/ ./code > nonpr.sarif;
+        cd code;
+        echo $(semgrep ci --json --config ./rules/ ./code ) > nonpr.sarif;
         if [[ -s nonpr.sarif ]]; then
-           python3 ./rules/scripts/send-results-to-defectdojo.py ./nonpr.sarif;
+          python3 ./rules/scripts/send-results-to-defectdojo.py ./nonpr.sarif;
         fi
+        semgrep ci
       if: github.event_name != 'pull_request'
     - name: Run blocking rules & send results to Defect Dojo, if a PR. If it passes, continue with other rules
       id: run_blocking_rules_pr
