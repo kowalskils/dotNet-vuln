@@ -116,4 +116,3 @@ jobs:
         path: ./code/final_results.txt
       if: steps.pr_comment_case1.outputs.final_results_file_exists == 'True' || steps.pr_comment_case2.outputs.final_results_file_exists == 'True'
 
-
