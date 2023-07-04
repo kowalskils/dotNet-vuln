@@ -43,9 +43,9 @@ jobs:
       #   fi
       run: |
         cd code;
-        echo $(semgrep ci --json --config ./rules/ ./code ) > nonpr.sarif;
-        if [[ -s nonpr.sarif ]]; then
-          python3 ./../rules/scripts/send-results-to-defectdojo.py ./nonpr.sarif;
+        echo $(semgrep ci --json --config ./rules/ ) > nonpr.json;
+        if [[ -s nonpr.json ]]; then
+          python3 ./../rules/scripts/send-results-to-defectdojo.py ./nonpr.json;
         fi
         semgrep ci
       if: github.event_name != 'pull_request'
