@@ -43,7 +43,7 @@ jobs:
       #   fi
       run: |
         cd code;
-        echo $(semgrep ci --json --config ./rules/ ) > nonpr.json;
+        echo $(semgrep ci --json --config ./rules/ ) | tee nonpr.json;
         if [[ -s nonpr.json ]]; then
           python3 ./../rules/scripts/send-results-to-defectdojo.py ./nonpr.json;
         fi
